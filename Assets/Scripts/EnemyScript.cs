@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
 
-    public float health = 100.0f;
+    public float health = 10.0f;
     public static float constSpeed = -10.0f;
     public Vector2 speed = new Vector2(0, constSpeed);
-    private string collidied;
+    private string collided;
 
 	// Use this for initialization
 	void Start () {
+        health = 10.0f;
 	}
 	
 	// Update is called once per frame
@@ -26,12 +27,16 @@ public class EnemyScript : MonoBehaviour {
 
     void OnCollisionEnter2D (Collision2D col)
     {
-        collidied = col.gameObject.name;
+        collided = col.gameObject.name;
 
-        if (collidied == "Rocket")
+        if (collided == "BorderBottom")
         {
-            DestroyObject(col.gameObject);
+            DestroyObject(this.gameObject);
         }
     }
 
+    IEnumerator RespawnTimer(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+    }
 }
