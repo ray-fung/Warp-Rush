@@ -63,28 +63,28 @@ public class RocketScript : MonoBehaviour {
             reload -= Time.deltaTime;
         }
 
-        if (dead)
-        {
-            //Respawn(this.gameObject);
-            StartCoroutine(Respawn(this.gameObject));
-        }
-    }
-
-    public IEnumerator Respawn(GameObject _rocket)
-    {
-        Destroy(_rocket);
-        Debug.Log("destroyed");
-
-        yield return new WaitForSeconds(5);
-        //while(respawn <= 5f)
+        //if (dead)
         //{
-
-        //    respawn += Time.deltaTime;
+        //    //Respawn(this.gameObject);
+        //    StartCoroutine(Respawn(this.gameObject));
         //}
-            Instantiate(rocket);
-            dead = false;
-            respawn = 0f;
     }
+
+    //public IEnumerator Respawn(GameObject _rocket)
+    //{
+    //    Destroy(_rocket);
+    //    Debug.Log("destroyed");
+
+    //    yield return new WaitForSeconds(5);
+    //    //while(respawn <= 5f)
+    //    //{
+
+    //    //    respawn += Time.deltaTime;
+    //    //}
+    //        Instantiate(rocket);
+    //        dead = false;
+    //        respawn = 0f;
+    //}
 
     void OnCollisionEnter2D(Collision2D other)
     {
