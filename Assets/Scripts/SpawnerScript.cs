@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour {
 
-    public float interval = 5.0f;
+    public float interval = 1.0f;
 
     public GameObject regEnemy;
 
@@ -51,7 +51,7 @@ public class SpawnerScript : MonoBehaviour {
             GameObject newEnemy5 = Instantiate<GameObject>(regEnemy);
             newEnemy5.transform.position = startEnemy6;
 
-            interval = 5.0f;
+            interval = 1.0f;
         }
 	}
 }

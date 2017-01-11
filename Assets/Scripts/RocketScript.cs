@@ -14,7 +14,7 @@ public class RocketScript : MonoBehaviour {
 
     public GameObject rocket;
 
-    Vector2 spawn = new Vector2(0, -7);
+    public Vector2 spawn = new Vector2(0, -7);
 
 	// Use this for initialization
 	void Start () {
@@ -32,16 +32,6 @@ public class RocketScript : MonoBehaviour {
             rocketSpeedx = 15.0f;
         }
 
-        /*        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-                {
-                    rocketSpeedy = 15.0f;
-                }
-
-                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-                {
-                    rocketSpeedy = -15.0f;
-                }
-        */
         if (Input.anyKey == false)
         {
             rocketSpeedx = 0;
@@ -62,36 +52,15 @@ public class RocketScript : MonoBehaviour {
         {
             reload -= Time.deltaTime;
         }
-
-        //if (dead)
-        //{
-        //    //Respawn(this.gameObject);
-        //    StartCoroutine(Respawn(this.gameObject));
-        //}
     }
-
-    //public IEnumerator Respawn(GameObject _rocket)
-    //{
-    //    Destroy(_rocket);
-    //    Debug.Log("destroyed");
-
-    //    yield return new WaitForSeconds(5);
-    //    //while(respawn <= 5f)
-    //    //{
-
-    //    //    respawn += Time.deltaTime;
-    //    //}
-    //        Instantiate(rocket);
-    //        dead = false;
-    //        respawn = 0f;
-    //}
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.name.Contains("Enemy"))
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
             dead = true;
         }
-;    }
+
+    }
 }
