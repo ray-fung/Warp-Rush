@@ -6,6 +6,7 @@ public class RocketSpawnScript : MonoBehaviour {
 
     public float timer = 0f;
     public float invincibletime = 0f;
+    public float secondarytime;
     public bool invincible = false;
 
     public Transform rocket;
@@ -17,32 +18,29 @@ public class RocketSpawnScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-        if(rocket.GetComponent<RocketScript>().dead)
+
+        invincibletime += Time.deltaTime;
+
+        if (rocket.GetComponent<RocketScript>().dead)
         {
+            rocket.gameObject.GetComponent<RocketScript>().lives -= 1;
             timer += Time.deltaTime;
-            invincibletime += Time.deltaTime;
             if (timer >= 1.5f)
             {
                 rocket.gameObject.transform.position = rocket.GetComponent<RocketScript>().spawn;
                 invincible = true;
                 rocket.gameObject.SetActive(true);
-                timer = 0f;
-                rocket.GetComponent<RocketScript>().dead = false;     
+                rocket.GetComponent<RocketScript>().dead = false;
+                rocket.GetComponent<PolygonCollider2D>().isTrigger = true;
+                secondarytime = invincibletime;
             }
         }
-            if (invincible & invincibletime <= 4.5f)
-            {
-                Debug.Log("triggered");
-                rocket.GetComponent<PolygonCollider2D>().isTrigger = true;
-                invincible = false;
-            }
-
-            if (!invincible & invincibletime > 4.5f)
-            {
-                Debug.Log("hey");
-                rocket.GetComponent<PolygonCollider2D>().isTrigger = false;
-                invincibletime = 0;
-            }
+        else if (invincibletime >= secondarytime + 2.5f & invincible)
+        {
+            rocket.GetComponent<PolygonCollider2D>().isTrigger = false;
+            invincible = false;
+            timer = 0;
+            invincibletime = 0;
+        }
     }
 }

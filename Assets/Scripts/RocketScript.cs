@@ -5,19 +5,18 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour {
 
     private float rocketSpeedx;
-    private float rocketSpeedy;
-
     private float reload = .05f;
-    private float respawn = 0f;
+    public float lives = 0f;
 
     public bool dead = false;
-
     public GameObject rocket;
+    public GameObject liveSprites;
 
-    public Vector2 spawn = new Vector2(0, -7);
+    public Vector2 spawn = new Vector2(0, -6);
 
 	// Use this for initialization
 	void Start () {
+        lives = 3f;
 	}
 
     // Update is called once per frame
@@ -52,7 +51,14 @@ public class RocketScript : MonoBehaviour {
         {
             reload -= Time.deltaTime;
         }
+
+        if(this.gameObject.transform.position.y != -6)
+        {
+            this.gameObject.SetActive(false);
+            dead = true;
+        }
     }
+
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -61,6 +67,5 @@ public class RocketScript : MonoBehaviour {
             this.gameObject.SetActive(false);
             dead = true;
         }
-
     }
 }
