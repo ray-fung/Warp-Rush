@@ -7,6 +7,7 @@ public class RocketScript : MonoBehaviour {
     private float rocketSpeedx;
     private float reload = .05f;
     public float lives = 0f;
+    public float score = 0f;
 
     public bool dead = false;
     public GameObject rocket;
@@ -42,6 +43,7 @@ public class RocketScript : MonoBehaviour {
         {
             GameObject projectile = Instantiate<GameObject>(transform.FindChild("Projectile").gameObject);
 
+            projectile.transform.SetParent(this.gameObject.transform);
             projectile.SetActive(true);
             projectile.transform.position = transform.FindChild("bulletPoint").position;
             projectile.GetComponent<BulletScript>().bulletSpeed = 50.0f;
@@ -56,6 +58,7 @@ public class RocketScript : MonoBehaviour {
         {
             this.gameObject.SetActive(false);
             dead = true;
+            lives -= 1;
         }
     }
 
@@ -66,6 +69,7 @@ public class RocketScript : MonoBehaviour {
         {
             this.gameObject.SetActive(false);
             dead = true;
+            lives -= 1;
         }
     }
 }

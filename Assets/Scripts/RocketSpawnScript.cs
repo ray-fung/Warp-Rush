@@ -23,7 +23,7 @@ public class RocketSpawnScript : MonoBehaviour {
 
         if (rocket.GetComponent<RocketScript>().dead)
         {
-            rocket.gameObject.GetComponent<RocketScript>().lives -= 1;
+            //rocket.gameObject.GetComponent<RocketScript>().lives -= 1;
             timer += Time.deltaTime;
             if (timer >= 1.5f)
             {
@@ -35,7 +35,7 @@ public class RocketSpawnScript : MonoBehaviour {
                 secondarytime = invincibletime;
             }
         }
-        else if (invincibletime >= secondarytime + 2.5f & invincible)
+        else if (invincibletime >= secondarytime + 1.5f & invincible)
         {
             rocket.GetComponent<PolygonCollider2D>().isTrigger = false;
             invincible = false;

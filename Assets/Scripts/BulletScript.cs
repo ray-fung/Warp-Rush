@@ -8,8 +8,10 @@ public class BulletScript : MonoBehaviour {
     public float timer;
     public new string name;
 
+    public GameObject rocket;
 	// Use this for initialization
 	void Start () {
+        //rocket = GameObject.Find("rocket");
         Vector2 speed = new Vector2(0, bulletSpeed);
         Rigidbody2D bullet = GetComponent<Rigidbody2D>();
         bullet.velocity = speed;
@@ -32,6 +34,7 @@ public class BulletScript : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         other.gameObject.GetComponent<EnemyScript>().health -= 30.0f;
+        this.gameObject.GetComponentInParent<RocketScript>().score += 5;
         DestroyObject(this.gameObject);
     }
 }

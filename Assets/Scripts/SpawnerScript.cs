@@ -5,8 +5,10 @@ using UnityEngine;
 public class SpawnerScript : MonoBehaviour {
 
     public float interval = 1.0f;
+    public float counter = 50f;
 
     public GameObject regEnemy;
+    public GameObject boss;
 
     public Vector2 startEnemy1;
     public Vector2 startEnemy2;
@@ -18,6 +20,7 @@ public class SpawnerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         regEnemy = transform.FindChild("Enemy").gameObject;
+        //boss = transform.FindChild("Boss").gameObject;
         startEnemy1 = transform.FindChild("Enemy (1)").position;
         startEnemy2 = transform.FindChild("Enemy (2)").position;
         startEnemy3 = transform.FindChild("Enemy (3)").position;
@@ -31,27 +34,36 @@ public class SpawnerScript : MonoBehaviour {
 
         interval -= Time.deltaTime;
 
-        if (interval < 0)
+        if (counter > 0)
         {
-            GameObject newEnemy = Instantiate<GameObject>(regEnemy);
-            newEnemy.transform.position = startEnemy1;
+            if (interval < 0)
+            {
+                GameObject newEnemy = Instantiate<GameObject>(regEnemy);
+                newEnemy.transform.position = startEnemy1;
 
-            GameObject newEnemy1 = Instantiate<GameObject>(regEnemy);
-            newEnemy1.transform.position = startEnemy2;
+                GameObject newEnemy1 = Instantiate<GameObject>(regEnemy);
+                newEnemy1.transform.position = startEnemy2;
 
-            GameObject newEnemy2 = Instantiate<GameObject>(regEnemy);
-            newEnemy2.transform.position = startEnemy3;
-            
-            GameObject newEnemy3 = Instantiate<GameObject>(regEnemy);
-            newEnemy3.transform.position = startEnemy4;
+                GameObject newEnemy2 = Instantiate<GameObject>(regEnemy);
+                newEnemy2.transform.position = startEnemy3;
 
-            GameObject newEnemy4 = Instantiate<GameObject>(regEnemy);
-            newEnemy4.transform.position = startEnemy5;
+                GameObject newEnemy3 = Instantiate<GameObject>(regEnemy);
+                newEnemy3.transform.position = startEnemy4;
 
-            GameObject newEnemy5 = Instantiate<GameObject>(regEnemy);
-            newEnemy5.transform.position = startEnemy6;
+                GameObject newEnemy4 = Instantiate<GameObject>(regEnemy);
+                newEnemy4.transform.position = startEnemy5;
 
-            interval = 1.0f;
+                GameObject newEnemy5 = Instantiate<GameObject>(regEnemy);
+                newEnemy5.transform.position = startEnemy6;
+
+                interval = 1.0f;
+                counter -= 1;
+            }
+
+            //if (counter == 0)
+            //{
+            //    GameObject bossEnemy1 = Instantiate<GameObject>(boss);
+            //}
         }
 	}
 }
