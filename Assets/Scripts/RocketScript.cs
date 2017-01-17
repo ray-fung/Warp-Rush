@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RocketScript : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class RocketScript : MonoBehaviour {
     private float reload = .05f;
     public float lives = 0f;
     public float score = 0f;
+    public static float endScore;
 
     public bool dead = false;
     public GameObject rocket;
@@ -22,6 +24,7 @@ public class RocketScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             rocketSpeedx = -15.0f;
@@ -44,6 +47,7 @@ public class RocketScript : MonoBehaviour {
             GameObject projectile = Instantiate<GameObject>(transform.FindChild("Projectile").gameObject);
 
             projectile.transform.SetParent(this.gameObject.transform);
+            projectile.transform.localScale = new Vector3(1, 1, 1);
             projectile.SetActive(true);
             projectile.transform.position = transform.FindChild("bulletPoint").position;
             projectile.GetComponent<BulletScript>().bulletSpeed = 50.0f;
@@ -54,14 +58,21 @@ public class RocketScript : MonoBehaviour {
             reload -= Time.deltaTime;
         }
 
-        if(this.gameObject.transform.position.y != -6)
+        if (this.gameObject.transform.position.y != -6)
         {
             this.gameObject.SetActive(false);
             dead = true;
             lives -= 1;
         }
-    }
 
+        if(lives == 0)
+        {
+            PlayerPrefs.SetInt("score", (int)score);
+            SceneManager.LoadScene(3);
+        }
+
+        endScore = score;
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -72,4 +83,14 @@ public class RocketScript : MonoBehaviour {
             lives -= 1;
         }
     }
+
+    //void moveToStart()
+    //{
+    //    GetComponent<Rigidbody2D>().velocity = new Vector2(0, 10);
+
+    //    if (GetComponent<Rigidbody2D>().position.y >= 6)
+    //    {
+    //        GetComponent<Rigidbody2D>().velocity = new Vector2(rocketSpeedx, 0);
+    //    }
+    //}
 }

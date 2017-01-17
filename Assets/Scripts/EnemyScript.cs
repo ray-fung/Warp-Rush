@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyScript : MonoBehaviour {
 
@@ -11,7 +12,19 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        health = 10.0f;
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            health = 50.0f;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 6)
+        {
+            health = 70;
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 7)
+        {
+            health = 100;
+        }
 	}
 	
 	// Update is called once per frame

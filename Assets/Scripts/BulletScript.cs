@@ -9,14 +9,16 @@ public class BulletScript : MonoBehaviour {
     public new string name;
 
     public GameObject rocket;
+    public Vector3 speed;
+
 	// Use this for initialization
 	void Start () {
-        //rocket = GameObject.Find("rocket");
-        Vector2 speed = new Vector2(0, bulletSpeed);
+        speed = new Vector3(0, bulletSpeed,0);
         Rigidbody2D bullet = GetComponent<Rigidbody2D>();
         bullet.velocity = speed;
         timer = 2.0f;
-	}
+        Physics2D.IgnoreLayerCollision(8, 8);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,8 +35,21 @@ public class BulletScript : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        other.gameObject.GetComponent<EnemyScript>().health -= 30.0f;
-        this.gameObject.GetComponentInParent<RocketScript>().score += 5;
-        DestroyObject(this.gameObject);
+        if (other.gameObject.name.Contains("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyScript>().health -= 30.0f;
+            this.gameObject.GetComponentInParent<RocketScript>().score += 5;
+            DestroyObject(this.gameObject);
+        }
+        else if (other.gameObject.name.Contains("Boss"))
+        {
+            other.gameObject.GetComponent<BossScript>().health -= 30.0f;
+            this.gameObject.GetComponentInParent<RocketScript>().score += 5;
+            DestroyObject(this.gameObject);
+        }
+        else
+        {
+            DestroyObject(this.gameObject);
+        }
     }
 }
