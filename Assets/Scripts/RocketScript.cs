@@ -40,6 +40,11 @@ public class RocketScript : MonoBehaviour {
             rocketSpeedx = 0;
         }
 
+        if (this.gameObject.transform.position.x <= -10 || this.gameObject.transform.position.x >= 10)
+        {
+            rocketSpeedx = 0;
+        }
+
         GetComponent<Rigidbody2D>().velocity = new Vector2(rocketSpeedx, 0);
 
         if (reload <= 0)

@@ -6,7 +6,7 @@ public class ExitGameScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        //Screen.SetResolution(236, 472, false);
 	}
 	
 	// Update is called once per frame
